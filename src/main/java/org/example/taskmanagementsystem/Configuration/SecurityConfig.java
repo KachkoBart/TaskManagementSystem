@@ -31,7 +31,7 @@ public class SecurityConfig {
         httpSecurity.headers(h -> h.frameOptions(fo -> fo.disable()));
         httpSecurity.authorizeHttpRequests(
                 authorizeHttpRequests -> authorizeHttpRequests
-                        .requestMatchers("/auth/profile")
+                        .requestMatchers("/api/users", "/api/tasks", "/api/tasks/**", "/api/users/**")
                         .authenticated()
                         .anyRequest()
                         .permitAll()
