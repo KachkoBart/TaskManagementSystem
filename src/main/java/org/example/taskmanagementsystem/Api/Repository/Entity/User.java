@@ -43,7 +43,7 @@ public class User  implements UserDetails {
     @JoinColumn(name = "user_id")
     private List<Task> authorTasks;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "task_executors",
             joinColumns = { @JoinColumn(name = "task_id") },

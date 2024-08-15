@@ -40,7 +40,7 @@ public class Task {
     @JoinColumn(name = "user_id", nullable = false)
     private User author;
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "task_executors",
             joinColumns = { @JoinColumn(name = "user_id") },
@@ -48,7 +48,7 @@ public class Task {
     )
     private List<User> executors = new ArrayList<>();
 
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(
             name = "task_comments",
             joinColumns = { @JoinColumn(name = "comment_id") },
