@@ -1,8 +1,6 @@
 package org.example.taskmanagementsystem.Api.Repository.Entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
@@ -14,6 +12,7 @@ import org.springframework.stereotype.Component;
 @Table(name = "comments")
 public class Comment {
     @Id
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Long id;
     private String email;
     private String comment;

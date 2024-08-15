@@ -82,8 +82,9 @@ public class TaskService {
         if(user.getExecutorsTasks() == null){
             user.setExecutorsTasks(new ArrayList<>());
         }
-        user.getExecutorsTasks().add(task);
-        userRepository.save(user);
+        User executor = userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException("User with id " + userID + " not found"));
+        executor.getExecutorsTasks().add(task);
+        userRepository.save(executor);
         log.debug("Added executors task with id " + taskID);
         task.getExecutors().add(user);
         return taskConverter.convertToDto(taskRepository.save(task));
@@ -95,9 +96,10 @@ public class TaskService {
             log.error("User with id " + userID + " is not the executors task");
             throw new IllegalActionsException("User with id " + userID + " is not executor for task id " + taskID);
         }
-        user.getExecutorsTasks().remove(task);
-        userRepository.save(user);
-        task.getExecutors().remove(user);
+        User executor = userRepository.findById(userID).orElseThrow(() -> new UserNotFoundException("User with id " + userID + " not found"));
+        executor.getExecutorsTasks().remove(task);
+        userRepository.save(executor);
+        task.getExecutors().remove(executor);
         return taskConverter.convertToDto(taskRepository.save(task));
     }
     public TaskDTO addComment(String comment, Long id, String email){

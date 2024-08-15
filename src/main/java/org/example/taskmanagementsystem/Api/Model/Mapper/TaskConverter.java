@@ -64,17 +64,19 @@ public class TaskConverter {
             userDTO.setName(user.getName());
 
             dto.setAuthor(userDTO);
-            if(task.getExecutors() == null){
-                return dto;
+            if(task.getExecutors() != null) {
+                dto.setExecutors(task.getExecutors().stream()
+                        .map((a) -> {
+                            UserDTO userDTOl = new UserDTO();
+                            userDTOl.setEmail(a.getEmail());
+                            userDTOl.setId(a.getId());
+                            userDTOl.setName(a.getName());
+                            return userDTOl;
+                        }).collect(Collectors.toList()));
             }
-            dto.setExecutors(task.getExecutors().stream()
-                    .map((a) -> {
-                        UserDTO userDTOl = new UserDTO();
-                        userDTOl.setEmail(a.getEmail());
-                        userDTOl.setId(a.getId());
-                        userDTOl.setName(a.getName());
-                        return userDTOl;
-                    }).collect(Collectors.toList()));
+            if(task.getComments() != null){
+                dto.setComments(task.getComments());
+            }
             return dto;
         }
     }
